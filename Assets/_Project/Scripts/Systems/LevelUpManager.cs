@@ -6,6 +6,7 @@ public class LevelUpManager : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     private PlayerAutoShoot playerAutoShoot;
+    private PlayerHealth playerHealth;
 
     private bool isChoosingUpgrade = false;
     private List<UpgradeType> currentChoices = new List<UpgradeType>();
@@ -18,6 +19,7 @@ public class LevelUpManager : MonoBehaviour
         {
             playerMovement = player.GetComponent<PlayerMovement>();
             playerAutoShoot = player.GetComponent<PlayerAutoShoot>();
+            playerHealth = player.GetComponent<PlayerHealth>();
         }
     }
 
@@ -59,7 +61,10 @@ public class LevelUpManager : MonoBehaviour
         {
             UpgradeType.MoveSpeed,
             UpgradeType.FireRate,
-            UpgradeType.MagicBoltDamage
+            UpgradeType.MagicBoltDamage,
+            UpgradeType.ProjectileSpeed,
+            UpgradeType.MaxHealth,
+            UpgradeType.Heal
         };
 
         ShuffleList(allUpgrades);
@@ -109,6 +114,30 @@ public class LevelUpManager : MonoBehaviour
                 {
                     playerAutoShoot.IncreaseMagicBoltDamage(1);
                     Debug.Log("Magic Bolt Damage Up");
+                }
+                break;
+
+            case UpgradeType.ProjectileSpeed:
+                if (playerAutoShoot != null)
+                {
+                    playerAutoShoot.IncreaseProjectileSpeed(2f);
+                    Debug.Log("Projectile Speed Up");
+                }
+                break;
+
+            case UpgradeType.MaxHealth:
+                if (playerHealth != null)
+                {
+                    playerHealth.IncreaseMaxHealth(2);
+                    Debug.Log("Max Health Up");
+                }
+                break;
+
+            case UpgradeType.Heal:
+                if (playerHealth != null)
+                {
+                    playerHealth.Heal(3);
+                    Debug.Log("Heal");
                 }
                 break;
         }

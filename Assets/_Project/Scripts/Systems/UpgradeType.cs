@@ -2,5 +2,8 @@ public enum UpgradeType
 {
     MoveSpeed,
     FireRate,
-    MagicBoltDamage
+    MagicBoltDamage,
+    ProjectileSpeed,
+    MaxHealth,
+    Heal
 }

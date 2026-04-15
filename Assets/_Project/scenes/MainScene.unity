@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 761439699}
   - component: {fileID: 761439700}
   - component: {fileID: 761439701}
+  - component: {fileID: 761439702}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -603,6 +604,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAutoShoot
   magicBoltPrefab: {fileID: 2993733569741420833, guid: 864ce12e8d56df84cabdac566ccef808, type: 3}
   fireRate: 0.75
+  magicBoltDamage: 1
+--- !u!114 &761439702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761439694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73452a4f2354eb943952dbe5bb4b7807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExperience
+  currentLevel: 1
+  currentExperience: 0
+  experienceToNextLevel: 5
+--- !u!1 &1893504063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1893504065}
+  - component: {fileID: 1893504064}
+  m_Layer: 0
+  m_Name: LevelUpManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1893504064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893504063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf91783d72512f49a2a6a200ffe7ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelUpManager
+--- !u!4 &1893504065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893504063}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.38445, y: -0.17908, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -611,3 +672,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 761439698}
   - {fileID: 734977533}
+  - {fileID: 1893504065}

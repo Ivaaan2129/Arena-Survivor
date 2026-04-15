@@ -18,6 +18,11 @@ public class MagicBoltProjectile : MonoBehaviour
         damage = newDamage;
     }
 
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
     private void Start()
     {
         Destroy(gameObject, lifetime);
