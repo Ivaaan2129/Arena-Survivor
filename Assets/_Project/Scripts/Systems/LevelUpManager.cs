@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class LevelUpManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class LevelUpManager : MonoBehaviour
     private PlayerAutoShoot playerAutoShoot;
 
     private bool isChoosingUpgrade = false;
+    private List<UpgradeType> currentChoices = new List<UpgradeType>();
 
     private void Start()
     {
@@ -26,15 +28,15 @@ public class LevelUpManager : MonoBehaviour
 
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
-            ApplyUpgrade(1);
+            ApplyUpgrade(currentChoices[0]);
         }
         else if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
-            ApplyUpgrade(2);
+            ApplyUpgrade(currentChoices[1]);
         }
         else if (Keyboard.current.digit3Key.wasPressedThisFrame)
         {
-            ApplyUpgrade(3);
+            ApplyUpgrade(currentChoices[2]);
         }
     }
 
@@ -43,37 +45,70 @@ public class LevelUpManager : MonoBehaviour
         isChoosingUpgrade = true;
         Time.timeScale = 0f;
 
+        GenerateRandomChoices();
+
         Debug.Log("LEVEL UP! Elige una mejora:");
-        Debug.Log("1 - Move Speed Up");
-        Debug.Log("2 - Fire Rate Up");
-        Debug.Log("3 - Magic Bolt Damage Up");
+        Debug.Log("1 - " + currentChoices[0]);
+        Debug.Log("2 - " + currentChoices[1]);
+        Debug.Log("3 - " + currentChoices[2]);
     }
 
-    private void ApplyUpgrade(int option)
+    private void GenerateRandomChoices()
     {
-        switch (option)
+        List<UpgradeType> allUpgrades = new List<UpgradeType>()
         {
-            case 1:
+            UpgradeType.MoveSpeed,
+            UpgradeType.FireRate,
+            UpgradeType.MagicBoltDamage
+        };
+
+        ShuffleList(allUpgrades);
+
+        currentChoices = new List<UpgradeType>
+        {
+            allUpgrades[0],
+            allUpgrades[1],
+            allUpgrades[2]
+        };
+    }
+
+    private void ShuffleList(List<UpgradeType> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randomIndex = Random.Range(i, list.Count);
+
+            UpgradeType temp = list[i];
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
+        }
+    }
+
+    private void ApplyUpgrade(UpgradeType upgrade)
+    {
+        switch (upgrade)
+        {
+            case UpgradeType.MoveSpeed:
                 if (playerMovement != null)
                 {
                     playerMovement.IncreaseMoveSpeed(1f);
-                    Debug.Log("Mejora aplicada: Move Speed Up");
+                    Debug.Log("Move Speed Up");
                 }
                 break;
 
-            case 2:
+            case UpgradeType.FireRate:
                 if (playerAutoShoot != null)
                 {
                     playerAutoShoot.IncreaseFireRate(0.1f);
-                    Debug.Log("Mejora aplicada: Fire Rate Up");
+                    Debug.Log("Fire Rate Up");
                 }
                 break;
 
-            case 3:
+            case UpgradeType.MagicBoltDamage:
                 if (playerAutoShoot != null)
                 {
                     playerAutoShoot.IncreaseMagicBoltDamage(1);
-                    Debug.Log("Mejora aplicada: Magic Bolt Damage Up");
+                    Debug.Log("Magic Bolt Damage Up");
                 }
                 break;
         }
