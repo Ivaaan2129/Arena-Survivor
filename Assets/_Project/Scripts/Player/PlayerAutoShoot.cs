@@ -4,6 +4,7 @@ public class PlayerAutoShoot : MonoBehaviour
 {
     public GameObject magicBoltPrefab;
     public float fireRate = 0.75f;
+    public int magicBoltDamage = 1;
 
     private float fireTimer;
 
@@ -58,6 +59,18 @@ public class PlayerAutoShoot : MonoBehaviour
         if (projectile != null)
         {
             projectile.SetDirection(direction);
+            projectile.SetDamage(magicBoltDamage);
         }
+    }
+
+    public void IncreaseFireRate(float amount)
+    {
+        fireRate -= amount;
+        fireRate = Mathf.Max(0.1f, fireRate);
+    }
+
+    public void IncreaseMagicBoltDamage(int amount)
+    {
+        magicBoltDamage += amount;
     }
 }

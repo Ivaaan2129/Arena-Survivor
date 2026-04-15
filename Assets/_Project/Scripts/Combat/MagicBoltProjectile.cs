@@ -4,12 +4,18 @@ public class MagicBoltProjectile : MonoBehaviour
 {
     public float speed = 10f;
     public float lifetime = 3f;
+    public int damage = 1;
 
     private Vector2 direction;
 
     public void SetDirection(Vector2 newDirection)
     {
         direction = newDirection.normalized;
+    }
+
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
     }
 
     private void Start()
@@ -30,7 +36,7 @@ public class MagicBoltProjectile : MonoBehaviour
 
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(1);
+                enemyHealth.TakeDamage(damage);
             }
 
             Destroy(gameObject);
