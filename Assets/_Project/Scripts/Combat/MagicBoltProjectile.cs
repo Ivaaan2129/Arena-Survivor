@@ -26,7 +26,13 @@ public class MagicBoltProjectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(1);
+            }
+
             Destroy(gameObject);
         }
     }
