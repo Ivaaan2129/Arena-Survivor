@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
 public class LevelUpManager : MonoBehaviour
@@ -8,7 +7,8 @@ public class LevelUpManager : MonoBehaviour
     private PlayerAutoShoot playerAutoShoot;
     private PlayerHealth playerHealth;
 
-    private bool isChoosingUpgrade = false;
+    [SerializeField] private LevelUpUI levelUpUI;
+
     private List<UpgradeType> currentChoices = new List<UpgradeType>();
 
     private void Start()
@@ -23,36 +23,13 @@ public class LevelUpManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (!isChoosingUpgrade)
-            return;
-
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
-        {
-            ApplyUpgrade(currentChoices[0]);
-        }
-        else if (Keyboard.current.digit2Key.wasPressedThisFrame)
-        {
-            ApplyUpgrade(currentChoices[1]);
-        }
-        else if (Keyboard.current.digit3Key.wasPressedThisFrame)
-        {
-            ApplyUpgrade(currentChoices[2]);
-        }
-    }
-
     public void StartLevelUpChoice()
     {
-        isChoosingUpgrade = true;
         Time.timeScale = 0f;
 
         GenerateRandomChoices();
 
-        Debug.Log("LEVEL UP! Elige una mejora:");
-        Debug.Log("1 - " + currentChoices[0]);
-        Debug.Log("2 - " + currentChoices[1]);
-        Debug.Log("3 - " + currentChoices[2]);
+        levelUpUI.Show(currentChoices.ToArray());
     }
 
     private void GenerateRandomChoices()
@@ -89,7 +66,7 @@ public class LevelUpManager : MonoBehaviour
         }
     }
 
-    private void ApplyUpgrade(UpgradeType upgrade)
+    public void ApplyUpgrade(UpgradeType upgrade)
     {
         switch (upgrade)
         {
@@ -142,7 +119,6 @@ public class LevelUpManager : MonoBehaviour
                 break;
         }
 
-        isChoosingUpgrade = false;
         Time.timeScale = 1f;
     }
 }
