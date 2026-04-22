@@ -2,13 +2,21 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float moveSpeed = 2f;
+    [SerializeField] private float moveSpeed = 2f;
 
     private Transform player;
+    private Animator animator;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -17,5 +25,19 @@ public class EnemyController : MonoBehaviour
 
         Vector2 direction = (player.position - transform.position).normalized;
         transform.position += (Vector3)(direction * moveSpeed * Time.deltaTime);
+
+        if (animator != null)
+        {
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            {
+                animator.SetFloat("MoveX", direction.x);
+                animator.SetFloat("MoveY", 0f);
+            }
+            else
+            {
+                animator.SetFloat("MoveX", 0f);
+                animator.SetFloat("MoveY", direction.y);
+            }
+        }
     }
 }
