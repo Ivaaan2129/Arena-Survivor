@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             Die();
         }
     }
@@ -42,6 +43,12 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Game Over");
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.GameOver();
+        }
+
         gameObject.SetActive(false);
     }
 }
